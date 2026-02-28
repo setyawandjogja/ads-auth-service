@@ -1,9 +1,9 @@
-package ads.autservice.service;
+package ads.user_management_service.service;
 
-import ads.autservice.constant.EventType;
-import ads.autservice.dto.BaseEvent;
-import ads.autservice.dto.UserRegistrationData;
-import ads.autservice.entity.User;
+import ads.user_management_service.constant.EventType;
+import ads.user_management_service.dto.BaseEvent;
+import ads.user_management_service.dto.UserRegistrationData;
+import ads.user_management_service.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

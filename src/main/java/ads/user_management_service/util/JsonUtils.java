@@ -1,7 +1,7 @@
-package ads.autservice.util;
+package ads.user_management_service.util;
 
-import ads.autservice.constant.ErrorEnum;
-import ads.autservice.exception.GenericException;
+import ads.user_management_service.constant.ErrorEnum;
+import ads.user_management_service.exception.GenericException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;

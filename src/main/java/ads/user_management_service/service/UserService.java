@@ -1,12 +1,12 @@
-package ads.autservice.service;
+package ads.user_management_service.service;
 
-import ads.autservice.constant.ErrorEnum;
-import ads.autservice.dto.CreateUserRequestDto;
-import ads.autservice.entity.User;
-import ads.autservice.exception.GenericException;
-import ads.autservice.repository.RoleRepository;
-import ads.autservice.repository.UserRepository;
-import ads.autservice.util.Md5Util;
+import ads.user_management_service.constant.ErrorEnum;
+import ads.user_management_service.dto.CreateUserRequestDto;
+import ads.user_management_service.entity.User;
+import ads.user_management_service.exception.GenericException;
+import ads.user_management_service.repository.RoleRepository;
+import ads.user_management_service.repository.UserRepository;
+import ads.user_management_service.util.Md5Util;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

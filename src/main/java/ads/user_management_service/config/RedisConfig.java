@@ -1,4 +1,4 @@
-package ads.autservice.config;
+package ads.user_management_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

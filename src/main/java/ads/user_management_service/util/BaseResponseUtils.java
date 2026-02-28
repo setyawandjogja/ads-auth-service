@@ -1,8 +1,8 @@
-package ads.autservice.util;
+package ads.user_management_service.util;
 
-import ads.autservice.constant.ErrorEnum;
-import ads.autservice.dto.BaseResponse;
-import ads.autservice.exception.GenericException;
+import ads.user_management_service.constant.ErrorEnum;
+import ads.user_management_service.dto.BaseResponse;
+import ads.user_management_service.exception.GenericException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

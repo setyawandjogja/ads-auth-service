@@ -1,7 +1,7 @@
-package ads.autservice.constant;
+package ads.user_management_service.constant;
 
 
-import ads.autservice.util.ConfigUtil;
+import ads.user_management_service.util.ConfigUtil;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

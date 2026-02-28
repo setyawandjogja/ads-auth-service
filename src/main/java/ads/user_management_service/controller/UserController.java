@@ -1,11 +1,11 @@
-package ads.autservice.controller;
+package ads.user_management_service.controller;
 
-import ads.autservice.constant.AuthPath;
-import ads.autservice.dto.BaseResponse;
-import ads.autservice.dto.CreateUserRequestDto;
-import ads.autservice.dto.UpdatePasswordRequest;
-import ads.autservice.service.UserService;
-import ads.autservice.util.BaseResponseUtils;
+import ads.user_management_service.constant.AuthPath;
+import ads.user_management_service.dto.BaseResponse;
+import ads.user_management_service.dto.CreateUserRequestDto;
+import ads.user_management_service.dto.UpdatePasswordRequest;
+import ads.user_management_service.service.UserService;
+import ads.user_management_service.util.BaseResponseUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

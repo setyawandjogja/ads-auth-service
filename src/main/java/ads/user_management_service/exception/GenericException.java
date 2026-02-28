@@ -1,6 +1,6 @@
-package ads.autservice.exception;
+package ads.user_management_service.exception;
 
-import ads.autservice.constant.ErrorEnum;
+import ads.user_management_service.constant.ErrorEnum;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

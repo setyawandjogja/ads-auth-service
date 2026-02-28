@@ -1,7 +1,7 @@
-package ads.autservice.mapper;
+package ads.user_management_service.mapper;
 
-import ads.autservice.dto.UserDetailResponse;
-import ads.autservice.entity.User;
+import ads.user_management_service.dto.UserDetailResponse;
+import ads.user_management_service.entity.User;
 
 public class UserMapper {
     private UserMapper() {}

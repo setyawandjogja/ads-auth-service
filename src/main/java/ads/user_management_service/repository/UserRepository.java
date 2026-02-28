@@ -1,5 +1,5 @@
-package ads.autservice.repository;
-import ads.autservice.entity.User;
+package ads.user_management_service.repository;
+import ads.user_management_service.entity.User;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 

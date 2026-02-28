@@ -1,4 +1,4 @@
-package ads.autservice.config;
+package ads.user_management_service.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

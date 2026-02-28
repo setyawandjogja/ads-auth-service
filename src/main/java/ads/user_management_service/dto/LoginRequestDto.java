@@ -1,4 +1,4 @@
-package ads.autservice.dto;
+package ads.user_management_service.dto;
 
 
 import lombok.*;

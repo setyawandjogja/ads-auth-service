@@ -1,10 +1,10 @@
-package ads.autservice.controller;
+package ads.user_management_service.controller;
 
-import ads.autservice.constant.AuthPath;
-import ads.autservice.dto.BaseResponse;
-import ads.autservice.dto.LoginRequestDto;
-import ads.autservice.dto.LoginResponseDto;
-import ads.autservice.service.LoginService;
+import ads.user_management_service.constant.AuthPath;
+import ads.user_management_service.dto.BaseResponse;
+import ads.user_management_service.dto.LoginRequestDto;
+import ads.user_management_service.dto.LoginResponseDto;
+import ads.user_management_service.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;

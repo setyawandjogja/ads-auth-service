@@ -1,4 +1,4 @@
-package ads.autservice.util;
+package ads.user_management_service.util;
 
 import org.springframework.beans.factory.annotation.Value;
 

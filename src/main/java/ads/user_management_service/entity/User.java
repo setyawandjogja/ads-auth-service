@@ -1,4 +1,4 @@
-package ads.autservice.entity;
+package ads.user_management_service.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

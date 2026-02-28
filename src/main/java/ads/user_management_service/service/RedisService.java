@@ -1,4 +1,4 @@
-package ads.autservice.service;
+package ads.user_management_service.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

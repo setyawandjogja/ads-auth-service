@@ -1,4 +1,4 @@
-package ads.autservice.dto;
+package ads.user_management_service.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

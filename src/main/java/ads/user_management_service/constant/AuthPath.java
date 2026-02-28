@@ -1,4 +1,4 @@
-package ads.autservice.constant;
+package ads.user_management_service.constant;
 
 public class AuthPath {
 	

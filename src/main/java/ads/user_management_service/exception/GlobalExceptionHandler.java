@@ -1,8 +1,8 @@
-package ads.autservice.exception;
+package ads.user_management_service.exception;
 
-import ads.autservice.constant.ErrorEnum;
-import ads.autservice.dto.BaseResponse;
-import ads.autservice.util.BaseResponseUtils;
+import ads.user_management_service.constant.ErrorEnum;
+import ads.user_management_service.dto.BaseResponse;
+import ads.user_management_service.util.BaseResponseUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

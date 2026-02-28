@@ -1,6 +1,6 @@
-package ads.autservice.repository;
+package ads.user_management_service.repository;
 
-import ads.autservice.entity.Role;
+import ads.user_management_service.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
