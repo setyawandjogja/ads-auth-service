@@ -22,7 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final RedisService redisService;
-
+    private final UserEventPublisher publisher;
     private static final Duration CACHE_TTL = Duration.ofHours(24);
     @Transactional(readOnly = true)
     public UserDetailResponse getUserDetail(UUID userId) throws GenericException {
@@ -83,6 +83,7 @@ public class UserService {
         String redisKey = "USER_CREDENTIAL:" + user.getUserName();
         redisService.setData(redisKey, user, CACHE_TTL);
 
-        // publisher.publishUserCreated(user);
+        // Publish event ke RabbitMQ
+        publisher.publishUserCreated(user);
     }
 }
