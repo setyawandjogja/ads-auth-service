@@ -2,7 +2,6 @@ package ads.autservice.service;
 
 import ads.autservice.constant.EventType;
 import ads.autservice.dto.BaseEvent;
-import ads.autservice.dto.UserCreatedMessage;
 import ads.autservice.dto.UserRegistrationData;
 import ads.autservice.entity.User;
 import lombok.RequiredArgsConstructor;

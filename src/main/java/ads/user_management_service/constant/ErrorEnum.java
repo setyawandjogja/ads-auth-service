@@ -2,7 +2,6 @@ package ads.autservice.constant;
 
 
 import ads.autservice.util.ConfigUtil;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
