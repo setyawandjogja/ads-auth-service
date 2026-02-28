@@ -96,6 +96,18 @@ public class JwtService {
 				.getBody();
 	}
 
+	public String extractUsername(String token) throws GenericException {
+		return validateToken(token).getSubject();
+	}
+
+	public String extractRole(String token) throws GenericException {
+		return validateToken(token).getIssuer();
+	}
+
+	public String extractUserId(String token) throws GenericException {
+		return validateToken(token).getId();
+	}
+
 	private Key getSignInKey() {
 		return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
 	}

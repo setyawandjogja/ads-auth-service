@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-
 @Service
 @RequiredArgsConstructor
 public class RedisService {
@@ -36,13 +35,17 @@ public class RedisService {
 		return objectMapper.convertValue(value, clazz);
 	}
 
+	// 🔥 FIX TANPA GETEX
 	public <T> T getData(String key, Class<T> clazz, Duration expired) {
 
-		Object value = valueOps().getAndExpire(key, expired);
+		Object value = valueOps().get(key);   // ⬅ hanya GET biasa
 
 		if (value == null) {
 			return null;
 		}
+
+		// ⬅ manual extend TTL (pengganti GETEX)
+		redisTemplate.expire(key, expired);
 
 		if (clazz.isInstance(value)) {
 			return clazz.cast(value);

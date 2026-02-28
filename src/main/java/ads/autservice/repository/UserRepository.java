@@ -21,4 +21,8 @@ public interface UserRepository extends JpaRepository<User, UUID> {
        WHERE u.userName = :userName
        """)
     Optional<User> findByUserNameWithRole(@Param("userName") String userName);
+
+    boolean existsByUserName(String userName);
+
+    boolean existsByEmail(String email);
 }

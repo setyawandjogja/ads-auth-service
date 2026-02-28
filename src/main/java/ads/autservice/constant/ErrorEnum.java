@@ -21,6 +21,8 @@ public enum ErrorEnum {
 	UNAUTHORIZED_ACCESS		("0104", "Unauthorized access", ConfigUtil.getApplicationName()),
 	DATA_NOT_FOUND		("0105", "Data Not Found", ConfigUtil.getApplicationName()),
 	METHOD_NOT_ALLOWED		("0106", "Method not allowed", ConfigUtil.getApplicationName()),
+	USER_ALREADY_EXIST		("0107", "User Name Already Exist", ConfigUtil.getApplicationName()),
+	EMAIL_ALREADY_EXIST		("0107", "Email Already Exist", ConfigUtil.getApplicationName()),
 
 	/// Server Errors (02XX)
 	INTERNAL_SERVER_ERROR		("0201", "Internal Server Error", ConfigUtil.getApplicationName()),

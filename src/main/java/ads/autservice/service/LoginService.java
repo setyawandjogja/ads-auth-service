@@ -70,6 +70,7 @@ public class LoginService {
 						.userName(entity.getUserName())
 						.password(entity.getPassword())
 						.roleName(entity.getRole().getRoleName())
+						.roleId(entity.getRole().getId())
 						.build();
 
 				redisService.setData(redisKey, user, CACHE_TTL);

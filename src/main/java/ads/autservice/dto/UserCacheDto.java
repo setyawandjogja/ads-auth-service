@@ -20,4 +20,5 @@ public class UserCacheDto {
     private String userName;
     private String password;
     private String roleName;
+    private Integer roleId;
 }

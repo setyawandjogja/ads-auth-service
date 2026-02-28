@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(AuthPath.AUTH_V1)
+@RequestMapping(AuthPath.AUTH)
 public class AuthController  {
 	
 	@Autowired
