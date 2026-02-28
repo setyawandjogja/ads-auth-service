@@ -10,7 +10,7 @@ import java.io.Serial;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Builder
-public class GenericException extends Exception {
+public class GenericException   extends RuntimeException {
 
 	@Serial
 	private static final long serialVersionUID = 5444171877399813880L;

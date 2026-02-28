@@ -45,7 +45,7 @@ public class BaseResponseUtils {
 				.errorDesc(ErrorEnum.SUCCESS.getErrorDesc())
 				.errorSource(applicationName)
 				.errorDetail(ErrorEnum.SUCCESS.getErrorDetail())
-				.operationId(generateOperationId()) 
+				.operationId(generateOperationId())
 				.data(data)
 				.build();
 	}
