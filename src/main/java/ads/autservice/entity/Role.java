@@ -29,7 +29,7 @@ public class Role {
 
     @Id
     @EqualsAndHashCode.Include
-    private Integer id;   // biasanya fixed: 1=ADMIN, 2=USER
+    private Integer id;   //  fixed: 1=ADMIN, 2=USER
 
     @Column(name = "role_name", nullable = false, length = 25)
     @ToString.Include
