@@ -9,9 +9,9 @@
 		<relativePath/>
 	</parent>
 	<groupId>ads</groupId>
-	<artifactId>user_management_service</artifactId>
+	<artifactId>user-management-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>autservice</name>
+	<name>user-management-service</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
