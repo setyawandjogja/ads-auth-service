@@ -10,6 +10,7 @@ import ads.autservice.repository.RoleRepository;
 import ads.autservice.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import ads.autservice.util.Md5Util;
 import java.time.Duration;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -37,10 +39,10 @@ public class UserService {
             // coba kirim test message tanpa throw exception
             rabbitTemplate.convertAndSend("amq.direct", "health.test", "PING");
             rabbitAvailable = true;
-            System.out.println("RabbitMQ connection available");
+            log.info("RabbitMQ connection available");
         } catch (Exception e) {
             rabbitAvailable = false;
-            System.err.println("RabbitMQ unavailable: " + e.getMessage());
+            log.info("RabbitMQ unavailable: {}", e.getMessage());
         }
     }
 
@@ -97,10 +99,10 @@ public class UserService {
             try {
                 publisher.publishUserCreated(user);
             } catch (Exception e) {
-                System.err.println("Failed to publish RabbitMQ event: " + e.getMessage());
+                log.info("Failed to publish RabbitMQ event: {}", e.getMessage());
             }
         } else {
-            System.err.println("Skipping RabbitMQ publish, connection unavailable");
+            log.info("Skipping RabbitMQ publish, connection unavailable");
         }
     }
 }
