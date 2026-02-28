@@ -19,8 +19,7 @@ public class BaseResponse<T> implements Serializable {
 	@Serial
 	private static final long serialVersionUID = -6901867171752079438L;
 
-	private String eventId;
-	private String eventType;
+	private String operationId;
 	private String errorCode;
 	private String errorDesc;
 	private String errorSource;
