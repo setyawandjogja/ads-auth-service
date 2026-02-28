@@ -4,23 +4,25 @@ import ads.autservice.constant.AuthPath;
 import ads.autservice.constant.ErrorEnum;
 import ads.autservice.dto.BaseResponse;
 import ads.autservice.dto.CreateUserRequestDto;
-import ads.autservice.service.JwtService;
+import ads.autservice.dto.UpdatePasswordRequest;
 import ads.autservice.service.UserService;
 import ads.autservice.util.BaseResponseUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ads.autservice.exception.GenericException;
+
+import java.util.UUID;
 @RestController
 @RequestMapping(AuthPath.USER)
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-    private final JwtService jwtService;
 
     @PostMapping(AuthPath.CREATE_USER)
     public BaseResponse<Void> createUser(
@@ -28,26 +30,25 @@ public class UserController {
             @RequestBody CreateUserRequestDto request) {
 
         try {
-
-            // 🔐 Cek header ada atau tidak
-            if (authHeader == null || authHeader.isBlank()) {
-                throw new GenericException(ErrorEnum.UNAUTHORIZED, "Authorization required");
-            }
-
-            if (!authHeader.startsWith("Bearer ")) {
-                throw new GenericException(ErrorEnum.UNAUTHORIZED, "Invalid Authorization format");
-            }
-
-            // Ambil token
-            String token = authHeader.substring(7);
-
-            // Extract role dari JWT
-            String role = jwtService.extractRole(token);
-
-            userService.createUser(request, role);
-
+            userService.createUser(request, authHeader);
             return BaseResponseUtils.constructResponse(ErrorEnum.SUCCESS, null);
+        } catch (Throwable e) {
+            return BaseResponseUtils.constructResponse(
+                    BaseResponseUtils.getErrorCode(e),
+                    null
+            );
+        }
+    }
 
+    @PutMapping("/update-password/{userId}")
+    public BaseResponse<Void> updatePassword(
+            @RequestHeader(value = "Authorization", required = false) String authHeader,
+            @PathVariable("userId") UUID userId,
+            @RequestBody UpdatePasswordRequest request) {
+
+        try {
+            userService.updatePassword(userId, request.getNewPassword(), authHeader);
+            return BaseResponseUtils.constructResponse(ErrorEnum.SUCCESS, null);
         } catch (Throwable e) {
             return BaseResponseUtils.constructResponse(
                     BaseResponseUtils.getErrorCode(e),

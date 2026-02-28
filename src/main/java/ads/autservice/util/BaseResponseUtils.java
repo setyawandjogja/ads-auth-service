@@ -24,7 +24,7 @@ public class BaseResponseUtils {
 				.errorDesc(error.getErrorDesc())
 				.errorSource(ConfigUtil.getApplicationName())
 				.errorDetail(error.getErrorDetail())
-				.operationId(error.getOperationId())
+				.eventId(error.getOperationId())
 				.data(data)
 				.build();
 	}

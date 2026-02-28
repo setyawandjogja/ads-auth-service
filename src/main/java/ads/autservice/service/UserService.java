@@ -18,7 +18,6 @@ import ads.autservice.util.Md5Util;
 
 import java.time.Duration;
 import java.util.UUID;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -29,8 +28,9 @@ public class UserService {
     private final RedisService redisService;
     private final UserEventPublisher publisher;
     private final RabbitTemplate rabbitTemplate;
-    private static final Duration CACHE_TTL = Duration.ofHours(24);
+    private final JwtService jwtService;
 
+    private static final Duration CACHE_TTL = Duration.ofHours(24);
     private boolean rabbitAvailable = false;
 
     @PostConstruct
@@ -46,23 +46,52 @@ public class UserService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public UserDetailResponse getUserDetail(UUID userId) throws GenericException {
-        User user = userRepository.findByIdWithRole(userId)
-                .orElseThrow(() -> new GenericException(ErrorEnum.DATA_NOT_FOUND, "User not found"));
-        return UserMapper.toDetailResponse(user);
+
+    // Helper Method untuk validasi JWT
+    private String validateAndExtractToken(String authHeader) throws GenericException {
+
+        if (authHeader == null || authHeader.isBlank()) {
+            throw new GenericException(ErrorEnum.UNAUTHORIZED, "Authorization required");
+        }
+
+        if (!authHeader.startsWith("Bearer ")) {
+            throw new GenericException(ErrorEnum.UNAUTHORIZED, "Invalid Authorization format");
+        }
+
+        return authHeader.substring(7);
     }
 
     @Transactional
-    public void updatePassword(UUID userId, String newPassword) throws GenericException {
+    public void updatePassword(UUID userId, String newPassword, String authHeader)
+            throws GenericException {
+
+        String token = validateAndExtractToken(authHeader);
+
+        String role = jwtService.extractRole(token);
+        UUID currentUserId = UUID.fromString(jwtService.extractUserId(token));
+
+        // hanya ADMIN atau user sendiri
+        if (!"ADMIN".equalsIgnoreCase(role) && !currentUserId.equals(userId)) {
+            throw new GenericException(ErrorEnum.UNAUTHORIZED,
+                    "Cannot update other user's password");
+        }
+
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new GenericException(ErrorEnum.DATA_NOT_FOUND, "User not found"));
-        user.setPassword(newPassword);
-        // Hibernate dirty checking akan otomatis update saat commit
+                .orElseThrow(() -> new GenericException(
+                        ErrorEnum.DATA_NOT_FOUND, "User not found"));
+
+        // enkripsi password (konsisten dengan createUser)
+        user.setPassword(Md5Util.md5(newPassword));
     }
 
     @Transactional
-    public void createUser(CreateUserRequestDto req, String roleFromToken) throws GenericException {
+    public void createUser(CreateUserRequestDto req, String authHeader)
+            throws GenericException {
+
+        String token = validateAndExtractToken(authHeader);
+
+        String roleFromToken = jwtService.extractRole(token);
+
         if (!"ADMIN".equalsIgnoreCase(roleFromToken)) {
             throw new GenericException(ErrorEnum.UNAUTHORIZED);
         }
@@ -76,7 +105,8 @@ public class UserService {
         }
 
         var role = roleRepository.findById(req.getRoleId())
-                .orElseThrow(() -> new GenericException(ErrorEnum.DATA_NOT_FOUND, "Role not found"));
+                .orElseThrow(() -> new GenericException(
+                        ErrorEnum.DATA_NOT_FOUND, "Role not found"));
 
         String encryptedPassword = Md5Util.md5(req.getPassword());
 
@@ -90,14 +120,12 @@ public class UserService {
 
         userRepository.save(user);
 
-        // Cache ke Redis
-        String redisKey = "USER_CREDENTIAL:" + user.getUserName();
-        redisService.setData(redisKey, user, CACHE_TTL);
-
-        // Publish event ke RabbitMQ kalau tersedia
+        String userIdFromToken = jwtService.extractUserId(token);
+        UUID createdBy = UUID.fromString(userIdFromToken);
+        // Rabbit publish
         if (rabbitAvailable) {
             try {
-                publisher.publishUserCreated(user);
+                publisher.publishUserCreated(user,createdBy);
             } catch (Exception e) {
                 log.info("Failed to publish RabbitMQ event: {}", e.getMessage());
             }

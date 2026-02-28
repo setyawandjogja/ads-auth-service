@@ -1,12 +1,18 @@
 package ads.autservice.service;
 
+import ads.autservice.constant.EventType;
+import ads.autservice.dto.BaseEvent;
 import ads.autservice.dto.UserCreatedMessage;
+import ads.autservice.dto.UserRegistrationData;
 import ads.autservice.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -21,16 +27,27 @@ public class UserEventPublisher {
     @Value("${rabbitmq.routing-key}")
     private String routingKey;
 
-    public void publishUserCreated(User user) {
+    public void publishUserCreated(User user, UUID createdBy) {
 
-        UserCreatedMessage message = UserCreatedMessage.builder()
-                .username(user.getUserName())
+        // data payload
+        UserRegistrationData data = UserRegistrationData.builder()
+                .id(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
+                .roleId(user.getRole().getId())
                 .build();
 
-        rabbitTemplate.convertAndSend(exchange, routingKey, message);
+        // event wrapper
+        BaseEvent<UserRegistrationData> event = BaseEvent.<UserRegistrationData>builder()
+                .eventId(UUID.randomUUID())
+                .eventType(EventType.USER_REGISTRATION)
+                .createdAt(LocalDateTime.now())
+                .createdBy(createdBy)
+                .data(data)
+                .build();
 
-        log.info("UserCreated event published for {}", user.getUserName());
+        rabbitTemplate.convertAndSend(exchange, routingKey, event);
+
+        log.info("UserRegistration event published for {}", user.getUserName());
     }
 }
