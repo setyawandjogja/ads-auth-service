@@ -50,6 +50,7 @@ public enum ErrorEnum {
 	ACCOUNT_EXPIRED	("0410", "Your account has expired. Contact Admin to reactivate it.", ConfigUtil.getApplicationName()),
 	INVALID_ACCOUNT	("0411", "Your account is invalid. Please contact Admin", ConfigUtil.getApplicationName()),
 	INVALID_REQUEST	("0411", "Invalid Request. Please contact Admin", ConfigUtil.getApplicationName()),
+	TOKEN_EXPIRED	("0411", "Token Expired. Please contact Admin", ConfigUtil.getApplicationName()),
 
 
 	/// Password error num (043x)

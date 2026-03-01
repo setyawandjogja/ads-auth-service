@@ -44,27 +44,7 @@ public class UserService {
         }
     }
 
-    // ===============================
-    // JWT VALIDATION
-    // ===============================
-    private String validateAndExtractToken(String authHeader) {
 
-        if (authHeader == null || authHeader.isBlank()) {
-            throw new GenericException(
-                    ErrorEnum.UNAUTHORIZED,
-                    "Authorization required"
-            );
-        }
-
-        if (!authHeader.startsWith("Bearer ")) {
-            throw new GenericException(
-                    ErrorEnum.UNAUTHORIZED,
-                    "Invalid Authorization format"
-            );
-        }
-
-        return authHeader.substring(7);
-    }
 
     // ===============================
     // UPDATE PASSWORD
@@ -72,7 +52,7 @@ public class UserService {
     @Transactional
     public void updatePassword(UUID userId, String newPassword, String authHeader) {
 
-        String token = validateAndExtractToken(authHeader);
+        String token = jwtService.validateAndExtractToken(authHeader);
 
         String role = jwtService.extractRole(token);
         UUID currentUserId = UUID.fromString(jwtService.extractUserId(token));
@@ -100,7 +80,7 @@ public class UserService {
     @Transactional
     public void createUser(CreateUserRequestDto req, String authHeader) {
 
-        String token = validateAndExtractToken(authHeader);
+        String token = jwtService.validateAndExtractToken(authHeader);
 
         String roleFromToken = jwtService.extractRole(token);
 
